@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>О проекте — Путеводитель по музеям Казахстана</title>
+
+  <style>
+    /* ---- переменные темы ---- */
+    :root{
+      --bg: #121212;
+      --page-bg: linear-gradient(135deg,#0f1720,#1b2430);
+      --card-bg: #1d1f22;
+      --text: #e8eef8;
+      --muted: #bfc7d6;
+      --accent: #2b4b8a;
+      --btn-bg: #ffffff;
+      --btn-text: var(--accent);
+      --img-filter: grayscale(0) contrast(0.9) saturate(0.9);
+      --shadow: 0 8px 30px rgba(2,6,23,0.6);
+    }
+
+    /* светлая тема */
+    body.light{
+      --bg: #f5f7fa;
+      --page-bg: linear-gradient(135deg,#f5f7fa,#e3eaf8);
+      --card-bg: #ffffff;
+      --text: #202426;
+      --muted: #566270;
+      --accent: #2b4b8a;
+      --btn-bg: #2b4b8a;
+      --btn-text: #ffffff;
+      --img-filter: none;
+      --shadow: 0 10px 30px rgba(45,65,110,0.12);
+    }
+
+    /* ---- общие стили и переходы ---- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+      background: var(--page-bg);
+      color: var(--text);
+      transition: background 420ms cubic-bezier(.2,.8,.2,1), color 420ms ease;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    header{
+      background:var(--accent);
+      color:#fff;
+      padding:18px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+      transition: background 420ms ease, box-shadow 420ms ease;
+      z-index:5;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    /* кнопка темы (в шапке) */
+    .theme-toggle{
+      position:absolute;
+      right:18px;
+      top:10px;
+      background:var(--btn-bg);
+      color:var(--btn-text);
+      border:0;
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.25);
+      transition: transform 180ms ease, background 300ms ease, color 300ms ease, box-shadow 300ms ease;
+    }
+    .theme-toggle:active{ transform: scale(.98) }
+
+    /* контейнер страницы */
+    .wrap{
+      width:100%;
+      max-width:1150px;
+      margin:36px auto;
+      padding:28px;
+      background:var(--card-bg);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      transition: background 420ms ease, box-shadow 420ms ease, transform 420ms ease;
+      animation: pageIn 600ms cubic-bezier(.2,.9,.25,1);
+    }
+
+    @keyframes pageIn{
+      from{opacity:0; transform:translateY(18px)}
+      to{opacity:1; transform:none}
+    }
+
+    h1{
+      margin:0 0 12px 0;
+      color:var(--accent);
+      font-size:26px;
+      text-align:center;
+    }
+
+    p.lead{
+      margin:0 auto 18px;
+      max-width:900px;
+      color:var(--muted);
+      text-align:justify;
+      line-height:1.7;
+      font-size:16px;
+    }
+
+    /* карточки */
+    .cards{
+      display:flex;
+      flex-wrap:wrap;
+      gap:22px;
+      justify-content:center;
+      margin-top:22px;
+    }
+
+    .card{
+      width:320px;
+      border-radius:12px;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 10px 30px rgba(2,6,23,0.35);
+      transition: transform 360ms cubic-bezier(.2,.9,.25,1), box-shadow 360ms ease, background 420ms ease;
+      transform-origin: center;
+      will-change: transform;
+      opacity:0;
+      transform: translateY(18px);
+      animation: cardIn 700ms forwards cubic-bezier(.2,.9,.25,1);
+    }
+
+    /* stagger: каждый nth-child получает задержку */
+    .card:nth-child(1){ animation-delay: 120ms }
+    .card:nth-child(2){ animation-delay: 240ms }
+    .card:nth-child(3){ animation-delay: 360ms }
+    .card:nth-child(4){ animation-delay: 480ms }
+    .card:nth-child(5){ animation-delay: 600ms }
+
+    @keyframes cardIn{
+      to{ opacity:1; transform:none }
+    }
+
+    .card:hover{
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 24px 60px rgba(2,6,23,0.45);
+    }
+
+    .card img{
+      display:block;
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      filter: var(--img-filter);
+      transition: filter 420ms ease, transform 420ms ease;
+    }
+    .card .body{
+      padding:16px;
+      color:var(--text);
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:18px;
+      color:var(--accent);
+    }
+    .card p{ margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
+
+    /* кнопка возврата */
+    .actions{ text-align:center; margin-top:26px }
+    .btn-main{
+      display:inline-block;
+      background:var(--accent);
+      color:#fff;
+      padding:12px 22px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:600;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    .btn-main:active{ transform: translateY(1px) }
+
+    footer{
+      margin-top:auto;
+      background:var(--accent);
+      color:#fff;
+      padding:14px 18px;
+      text-align:center;
+      font-size:13px;
+      box-shadow: 0 -3px 12px rgba(0,0,0,0.15);
+    }
+
+    /* адаптив */
+    @media (max-width:740px){
+      .cards{ gap:14px }
+      .card{ width:100%; max-width:520px }
+      .wrap{ margin:18px; padding:20px }
+      header{ padding:14px }
+      .theme-toggle{ right:12px; top:8px; padding:7px 12px }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Путеводитель по музеям Казахстана — О проекте
+    <button id="themeBtn" class="theme-toggle" aria-pressed="false">Светлая тема</button>
+  </header>
+
+  <main class="wrap" role="main">
+    <h1>О проекте</h1>
+
+    <p class="lead">
+      Добро пожаловать! Этот сайт — интерактивный путеводитель по музеям Казахстана. Здесь вы найдёте информацию о крупнейших музеях, интересные экспозиции и практические советы для визита.
+      Мы стремимся к единообразному дизайну: та же цветовая гамма, кнопки и эффекты, что и на других страницах сайта.
+    </p>
+
+    <div class="cards" aria-live="polite">
+      <article class="card">
+        <img src="images/nats.jpg" alt="Национальный музей">
+        <div class="body">
+          <h3>Национальный музей</h3>
+          <p>Главный культурный центр страны, объединяющий экспонаты разных эпох — от археологии до современного искусства.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="images/reg.jpg" alt="Региональные музеи">
+        <div class="body">
+          <h3>Региональные музеи</h3>
+          <p>Места, где можно познакомиться с историей и традициями каждой области Казахстана.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="images/vistavka.jpg" alt="Современные выставки">
+        <div class="body">
+          <h3>Современные выставки</h3>
+          <p>Интерактивные проекты, которые объединяют историю, науку и современное искусство.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="actions">
+      <a class="btn-main" href="index.html">Вернуться на главную</a>
+    </div>
+  </main>
+
+  <footer><footer>
+  © 2025 Путеводитель по музеям Казахстана — Все права защищены<br>
+  Этот сайт был создан студентом Университета имени Сатпаева — Шуленбаевым Алишером.<br>
+  Пусть этот виртуальный тур по музеям Казахстана вдохновит вас на новые открытия и путешествия по культурному наследию нашей страны!
+</footer>
+</footer>
+
+  <script>
+    // === логика переключения темы ===
+    (function(){
+      const btn = document.getElementById('themeBtn');
+      const body = document.body;
+
+      // Начальный текст кнопки зависит от текущей темы
+      function updateBtn(){
+        const light = body.classList.contains('light');
+        btn.textContent = light ? 'Тёмная тема' : 'Светлая тема';
+        btn.setAttribute('aria-pressed', light ? 'true' : 'false');
+      }
+
+      // Попробуем сохранить выбор пользователя в localStorage
+      const saved = localStorage.getItem('site-theme');
+      if(saved === 'light'){
+        body.classList.add('light');
+      } else if(saved === 'dark'){
+        body.classList.remove('light');
+      } // если нет — остаётся тёмная по умолчанию
+
+      updateBtn();
+
+      btn.addEventListener('click', () => {
+        body.classList.toggle('light');
+        // небольшой "вспышечный" эффект при смене темы: плавный переход управляющих переменных уже делает работу,
+        // но добавим краткое увеличение контейнера для ощущения "живой" смены
+        const wrap = document.querySelector('.wrap');
+        wrap.style.transition = 'transform 280ms cubic-bezier(.2,.9,.25,1)';
+        wrap.style.transform = 'scale(1.01)';
+        setTimeout(()=> wrap.style.transform = '', 280);
+
+        // сохранить выбор
+        localStorage.setItem('site-theme', body.classList.contains('light') ? 'light' : 'dark');
+        updateBtn();
+      });
+    })();
+  </script>
+</body>
+</html>

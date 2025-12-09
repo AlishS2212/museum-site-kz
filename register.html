@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      color: #1a1a1a;
+    }
+    .dark-theme {
+      background-color: #121212;
+      color: #eaeaea;
+    }
+    .register-box {
+      background: rgba(255,255,255,0.2);
+      box-shadow: 0 0 30px rgba(0,123,255,0.6);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      width: 320px;
+      transition: 0.3s;
+    }
+    input {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: linear-gradient(45deg, #6fb1fc, #4364f7, #0052d4);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(45deg, #6fb1fc, #4364f7, #0052d4);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Справочник по музеям</h1>
+  <div class="register-box">
+    <h2>Регистрация</h2>
+    <input type="text" placeholder="Имя">
+    <input type="text" placeholder="Город">
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Пароль">
+    <button onclick="register()">Зарегистрироваться</button>
+    <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()">Сменить тему</button>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-theme');
+    }
+    function register() {
+      alert('Письмо для подтверждения отправлено');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

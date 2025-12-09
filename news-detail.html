@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Новость — Museum.kz</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .news-hero { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+    .news-hero img{ width:100%; max-width:520px; border-radius:10px; object-fit:cover; }
+    .news-meta{ color:#666; margin-bottom:8px; }
+    .news-content{ margin-top:18px; line-height:1.6; max-width:900px; }
+    .back-btn{ display:inline-block; margin-top:20px; padding:8px 10px; background:#0077cc;color:#fff;border-radius:8px;text-decoration:none; }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">Museum.kz</div>
+  <nav class="nav">
+    <a href="index.html">Главная</a>
+    <a href="museums.html">Музеи</a>
+    <a href="news.html" class="active">Новости</a>
+    <a href="about.html">О проекте</a>
+    <a href="contacts.html">Контакты</a>
+  </nav>
+</header>
+
+<main class="page-content">
+  <div id="detailWrap">Загрузка...</div>
+</main>
+
+<script>
+  // small helper — the same NEWS data must be available here.
+  // We'll embed a minimal copy (only needed fields) — or you can fetch full data by copying NEWS array.
+  const NEWS_MIN = [
+    // IMPORTANT: must match the IDs from js/news.js
+    { id:'n1', date:'2025-09-20', title:'В Национальном музее открылась выставка «Золото степей»', city:'Астана', img:'https://nmrk.kz/storage/gallery/news/2024/gold_exhibit.jpg', content:'Полная статья о выставке и экспонатах...' },
+    { id:'n2', date:'2025-07-12', title:'В Алматы внедряют AR-экскурсии в залах музеев', city:'Алматы', img:'https://visitalmaty.kz/wp-content/uploads/2022/07/museum_ar_a.jpg', content:'Технические детали и партнеры...' },
+    { id:'n3', date:'2025-05-30', title:'Шымкент: завершена реставрация средневековых артефактов', city:'Шымкент', img:'https://e-history.kz/storage/tmp/resize/preview/1200_0_31c1fa16121326cbb127ca563bb99d1e.jpg', content:'Подробности о реставрации...' },
+    { id:'n4', date:'2025-03-18', title:'Караганда: Экомузей открыл постоянную экспозицию «Природа и человек»', city:'Караганда', img:'https://example-cdn.org/karaganda/ecomuseum_gallery.jpg', content:'Информация об экспонатах и программах.'},
+    { id:'n5', date:'2025-01-25', title:'Мангистауский заповедник запустил ночные экскурсии', city:'Актау', img:'https://welcome.kz/assets/cache_image/products/0_gallery/tours/mangystau/img-7999_420x650_4ab.jpg', content:'Как записаться и расписание.'}
+  ];
+
+  function qs(s){ return document.querySelector(s); }
+  function getParam(k){ return new URLSearchParams(window.location.search).get(k); }
+
+  const id = getParam('id');
+  const d = NEWS_MIN.find(x=>x.id===id);
+  const wrap = qs('#detailWrap');
+  if(!d){ wrap.innerHTML = '<h2>Новость не найдена</h2><a href="news.html" class="back-btn">← К списку</a>'; }
+  else {
+    wrap.innerHTML = `
+      <article>
+        <h1>${d.title}</h1>
+        <div class="news-meta">${d.city} · ${new Date(d.date).toLocaleDateString('ru-RU')}</div>
+        <div class="news-hero">
+          <img src="${d.img}" alt="${d.title}">
+          <div class="news-content">
+            <p>${d.content}</p>
+            <p>Источник: ${d.city} музей / пресс-служба.</p>
+            <a href="news.html" class="back-btn">← К списку</a>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+</script>
+</body>
+</html>

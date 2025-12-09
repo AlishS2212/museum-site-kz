@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Музеи Казахстана</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <button id="themeToggle" class="theme-toggle">Сменить тему</button>
+
+  <header class="header">
+    <div class="logo">Museum.kz</div>
+    <nav class="nav">
+      <a href="index.html">Главная</a>
+      <a href="museums.html" class="active">Музеи</a>
+      <a href="about.html">О проекте</a>
+      <a href="contacts.html">Контакты</a>
+      <a href="login.html" class="logout-btn">Выйти</a>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <h1 class="page-title">Музеи Казахстана</h1>
+
+    <div class="filter">
+      <label for="citySelect">Выбери город:</label>
+      <select id="citySelect">
+        <option value="all">Все города</option>
+        <option value="astana">Астана</option>
+        <option value="almaty">Алматы</option>
+        <option value="shymkent">Шымкент</option>
+        <option value="karaganda">Караганда</option>
+        <option value="aktau">Актау</option>
+      </select>
+    </div>
+
+    <div id="museumsGrid" class="museums-grid">
+
+      <!-- Астана -->
+      <div class="museum-card" data-city="astana" data-link="museum.html?id=astana1">
+        <img src="images/astana.jpg">
+        <div class="museum-info">
+          <h3>Национальный музей Казахстана</h3>
+          <p>Главный музей страны.</p>
+        </div>
+      </div>
+
+      <div class="museum-card" data-city="astana" data-link="museum.html?id=astana2">
+        <img src="images/modern_art_museum_astana.jpg">
+        <div class="museum-info">
+          <h3>Музей современного искусства Астаны</h3>
+          <p>Современное искусство Казахстана.</p>
+        </div>
+      </div>
+
+      <!-- Алматы -->
+      <div class="museum-card" data-city="almaty" data-link="museum.html?id=almaty1">
+        <img src="images/almaty.jpg">
+        <div class="museum-info">
+          <h3>Центральный государственный музей</h3>
+          <p>Один из крупнейших музеев страны.</p>
+        </div>
+      </div>
+
+      <div class="museum-card" data-city="almaty" data-link="museum.html?id=almaty2">
+        <img src="images/railway_museum_almaty.jpg">
+        <div class="museum-info">
+          <h3>Центральный музей железнодорожного транспорта</h3>
+          <p>История железных дорог Казахстана.</p>
+        </div>
+      </div>
+
+      <div class="museum-card" data-city="almaty" data-link="museum.html?id=almaty3">
+        <img src="images/kasteev_state_museum_arts_almaty.jpg">
+        <div class="museum-info">
+          <h3>Музей искусств им. Кастеева</h3>
+          <p>Главный музей искусств страны.</p>
+        </div>
+      </div>
+
+      <!-- Шымкент -->
+      <div class="museum-card" data-city="shymkent" data-link="museum.html?id=shymkent1">
+        <img src="images/shym.jpg">
+        <div class="museum-info">
+          <h3>Музей истории Южного Казахстана</h3>
+          <p>История региона.</p>
+        </div>
+      </div>
+
+      <div class="museum-card" data-city="shymkent" data-link="museum.html?id=shymkent2">
+        <img src="images/fine_arts_gallery_shymkent.jpg">
+        <div class="museum-info">
+          <h3>Галерея изобразительного искусства</h3>
+          <p>Картины и скульптуры местных мастеров.</p>
+        </div>
+      </div>
+
+      <div class="museum-card" data-city="shymkent" data-link="museum.html?id=shymkent3">
+        <img src="images/sairam_museum_shymkent.jpg">
+        <div class="museum-info">
+          <h3>Сайрамский музей</h3>
+          <p>Археология и этнография.</p>
+        </div>
+      </div>
+
+      <!-- Караганда -->
+      <div class="museum-card" data-city="karaganda" data-link="museum.html?id=karaganda1">
+        <img src="images/karaganda_carlag.jpg">
+        <div class="museum-info">
+          <h3>Музей Карлаг</h3>
+          <p>История политических репрессий.</p>
+        </div>
+      </div>
+
+      <div class="museum-card" data-city="karaganda" data-link="museum.html?id=karaganda2">
+        <img src="images/karaganda_ecomuseum.jpg">
+        <div class="museum-info">
+          <h3>Карагандинский Экомузей</h3>
+          <p>Экология и культура региона.</p>
+        </div>
+      </div>
+
+      <!-- Актау -->
+      <div class="museum-card" data-city="aktau" data-link="museum.html?id=aktau1">
+        <img src="images/aktau_zapovednik.jpg">
+        <div class="museum-info">
+          <h3>Мангистауский историко-культурный заповедник</h3>
+          <p>Памятники Мангистау.</p>
+        </div>
+      </div>
+
+      <div class="museum-card" data-city="aktau" data-link="museum.html?id=aktau2">
+        <img src="images/aktau_geology.jpg">
+        <div class="museum-info">
+          <h3>Геологический музей Мангистау</h3>
+          <p>Геология региона.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/theme.js"></script>
+
+  <script>
+    // фильтрация
+    document.getElementById("citySelect").addEventListener("change", function () {
+      const city = this.value;
+      document.querySelectorAll(".museum-card").forEach(card => {
+        card.style.display = city === "all" || card.dataset.city === city ? "block" : "none";
+      });
+    });
+
+    // открытие полной страницы
+    document.querySelectorAll(".museum-card").forEach(card => {
+      card.addEventListener("click", () => {
+        window.location.href = card.dataset.link;
+      });
+    });
+  </script>
+
+</body>
+</html>
